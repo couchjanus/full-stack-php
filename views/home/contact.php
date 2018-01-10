@@ -1,5 +1,4 @@
 <?php
-
 require_once VIEWS.'shared/head.php';
 require_once VIEWS.'shared/navigation.php';
 ?>
@@ -9,15 +8,11 @@ require_once VIEWS.'shared/navigation.php';
         <div class="row">
             <div class="col-md-12">
                 <div class="feature_header text-center">
-                    <h3 class="feature_title">Our <b>Cat Members</b></h3>
-                    <h4 class="feature_sub">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h4>
+                    <h3 class="feature_title">Contact <b>Page</b></h3>
+                    <h4 class="feature_sub">Hello There</h4>
                     <div class="divider"></div>
                 </div>
             </div>  <!-- Col-md-12 End -->
-            <div class="product-items">
-
-
-            </div>
         </div>
     </div> <!-- Conatiner product end -->
 </section>  <!-- Section product End -->
@@ -25,10 +20,4 @@ require_once VIEWS.'shared/navigation.php';
 <!-- Our product End -->
 <div class="clearfix"></div>
 
-<?php
-
-require_once VIEWS.'shared/footer.php';
-
-// echo "Home";
-?>
-
+<?php require_once VIEWS.'shared/footer.php';
