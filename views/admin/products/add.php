@@ -15,7 +15,15 @@ include_once VIEWS.'shared/admin/header.php';
                 <input required type="text" name="price">
 
                 <p>Категория</p>
-                <input required type="text" name="category">
+                <select name="category">
+                    <?php if (is_array($data['categories'])): ?>
+                        <?php foreach ($data['categories'] as $category): ?>
+                            <option value="<?php echo $category['id']; ?>">
+                                <?php echo $category['name']; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
 
                 <p>Производитель</p>
                 <input required type="text" name="brand">

@@ -13,6 +13,10 @@ return [
 
     'admin/products' => 'Admin\shop\ProductsController@index',
     'admin/product/add'=>'Admin\shop\ProductsController@create',
+
+    'admin/posts' => 'Admin\posts\PostController@index',
+    'admin/posts/add' => 'Admin\posts\PostController@add',
+
     //Главаня страница
     'index.php' => 'HomeController@index', 
     '' => 'HomeController@index',  

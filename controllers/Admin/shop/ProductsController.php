@@ -11,16 +11,8 @@ class ProductsController extends Controller {
      */
     public function index () {
         
-        $db = Connection::make();
-        // $con->exec("set names utf8");
-
-        $sql = "SELECT * FROM products ORDER BY id ASC";
-
-        $res = $db->query($sql);
-
-        $products = $res->fetchAll(PDO::FETCH_ASSOC);
+        $data['products'] = Product::index();
         $data['title'] = 'Admin Product List Page ';
-        $data['products'] = $products;
         $this->_view->render('admin/products/index', $data);
     }
 
@@ -44,32 +36,14 @@ class ProductsController extends Controller {
             $options['is_new'] = trim(strip_tags($_POST['is_new']));
             $options['status'] = trim(strip_tags($_POST['status']));
 
-            $con = Connection::make();
-        
-            $sql = "
-                INSERT INTO products(name, category_id, price, brand, description, is_new, status)
-                VALUES (:name, :category_id, :price, :brand, :description, :is_new, :status)
-                ";
+            Product::store($options);
 
-        $res = $con->prepare($sql);
-        $res->bindParam(':name', $options['name'], PDO::PARAM_STR);
-        $res->bindParam(':category_id', $options['category'], PDO::PARAM_INT);
-        $res->bindParam(':price', $options['price'], PDO::PARAM_INT);
-        $res->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
-        $res->bindParam(':description', $options['description'], PDO::PARAM_STR);
-        $res->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
-        $res->bindParam(':status', $options['status'], PDO::PARAM_INT);
-       
-        $res->execute();
-
-        header('Location: /admin/products');
-
+            header('Location: /admin/products');
         }
 
         $data['title'] = 'Admin Product Add New Product ';
+        $data['categories'] = Category::index();
         $this->_view->render('admin/products/add',$data);
-        
     }
-
 
 }

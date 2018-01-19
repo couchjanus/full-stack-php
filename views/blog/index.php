@@ -15,22 +15,16 @@ require_once VIEWS.'shared/navigation.php';
                 </div>
             </div>  <!-- Col-md-12 End -->
             <div class="items">
-            <?php 
              
-             if($resCount>0){
-                echo "<h3>$resCount posts:</h3> ";
-                  // print_r($comments);
-                foreach ($posts as $row) {
-                  echo "<h2>".$row["title"]."</h2>"; 
-                  echo "<div class='added_at'> Added At: ".strip_tags($row["created_at"])."</div>"; 
-                  echo "<div class='content'>".strip_tags($row["content"])."</div>"; 
-                  
-                }
-             }
-             else{
-                echo "No posts yet.... ";
-             }
-           ?>
+             <?php foreach($posts as $post): ?>
+                    
+                        <h2 class="sub-heading-a u-align-center"><?php echo $post['title']?></h3>
+                        <p  class="body-a u-align-center"><?php echo $post['formated_date'];?></p>
+                        <p  class="body-a u-align-center"><?php echo $post['content'];?></p>
+                        
+                    
+              <?php endforeach; ?>
+           
             </div>
         </div>
     </div> <!-- Conatiner product end -->
