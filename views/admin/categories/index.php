@@ -14,13 +14,16 @@ include_once VIEWS.'shared/admin/header.php';
             <tr>
                 <th>ID категории</th>
                 <th>Название категории</th>
-                
+                <th>Статус</th>
             </tr>
 
             <?php foreach ($categories as $category):?>
                 <tr>
                     <td><?php echo $category['id']?></td>
                     <td><?php echo $category['name']?></td>
+                    <td>
+                        <?php echo Category::getStatusText($category['status']);?>
+                    </td>
                     <td><a title="Редактировать" href="" class="del">
                             <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                         </a></td>
