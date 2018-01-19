@@ -28,7 +28,6 @@ class Post {
     public static function store ($options) {
 
         $db = Connection::make();
-        // $db->exec("set names utf8mb4");
 
         $sql = "INSERT INTO posts(title, content, status)
                 VALUES (:title, :content, :status)";
@@ -61,7 +60,6 @@ class Post {
     public static function searchPost ($query) {
 
         $db = Connection::make();
-        $db->exec("set names utf8mb4");
 
         $sql = "SELECT id, title, DATE_FORMAT(`created_at`, '%d.%m.%Y %H:%i:%s') AS formated_date FROM posts WHERE status = 1 and ((title LIKE '%{$query}%') OR (content LIKE '%{$query}%'))";
 

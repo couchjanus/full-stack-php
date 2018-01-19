@@ -9,7 +9,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="#">
-                                <img src="images/logo.png" alt="" class="img-responsive">
+                                <img src="/images/logo.png" alt="" class="img-responsive">
                         </a>
                  </div><!--Navbar header End-->
                   <nav class="collapse navbar-collapse navigation" id="navbar-collapse" role="navigation">
@@ -18,7 +18,7 @@
                             
                             <li><a href="#" id="megacatalog">Catalog</a> </li>
                             <li><a href="/about" >About Us </a> </li>
-                            <li><a href="#blog" >Blog</a> </li>
+                            <li><a href="/blog" >Blog</a> </li>
                             <li><a href="/guestbook" >Guestbook</a> </li>
                             <li><a href="/contact" >Contact Us</a> </li>
                             

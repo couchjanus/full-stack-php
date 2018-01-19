@@ -4,6 +4,7 @@ return [
     'contact' => 'ContactController@index',
     'about' => 'AboutController@index',
     'blog' => 'BlogController@index',
+    'blog/search' => 'BlogController@search',
     'guestbook' => 'GuestbookController@index',
 
     'admin' => 'Admin\DashboardController@index',
