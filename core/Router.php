@@ -21,10 +21,64 @@ class Router
     public function directPath($uri)
     {
         if (array_key_exists($uri, $this->routes)) {
-            return $this->routes[$uri];
+            echo $this->routes[$uri];
+            
+            var_dump(explode('@', $this->routes[$uri]));
+            return;
+            return $this->callAction(...explode('@', $this->routes[$uri]));
+            return $this->action(...explode('@', $this->routes[$uri]));
+        
         }
 
         throw new Exception('No route defined for this URI.');
+    }
+
+
+    protected function callAction($controller, $action, $vars = [])
+    {
+
+      include(CONTROLLERS.$controller.EXT);
+
+      $controller = new $controller;
+
+      if (! method_exists($controller, $action)) {
+        throw new Exception(
+        "{$controller} does not respond to the {$action} action."
+        );
+      }
+      return $controller->$action($vars); // return $vars to the action
+    }
+
+    protected function action($segments, $action, $vars = [])
+    {
+      
+      $segments = explode('\\', $segments);
+
+      $controller = array_pop($segments);
+
+      $controllerFile = '';
+
+      do {
+          if(count($segments)==0){
+             $controllerFile = CONTROLLERS .$controllerFile.$controller . EXT;
+             break;
+          }
+          else{
+              $segment = array_shift($segments);
+              $controllerFile = $controllerFile.$segment.'/';
+          }
+      }while ( count($segments) >= 0);
+      
+      include($controllerFile);
+      
+      $controller = new $controller;
+
+      if (! method_exists($controller, $action)) {
+        throw new Exception(
+        "{$controller} does not respond to the {$action} action."
+        );
+      }
+      return $controller->$action($vars); // return $vars to the action
     }
 }
 
@@ -121,59 +175,6 @@ class Router
 //     } 
 
 
-// // Проверить наличие такого запроса в routes
-
-// // foreach ($routes as $uriPattern => $path) {
-
-// //  //Сравниваем uriPattern и $uri
-// //  if($uriPattern == $uri){
-
-// //    $segments = explode('@', $path);
-// //    $controller = array_shift($segments);
-// //    $action = array_shift($segments);
-   
-// //    // Определить контроллер
-   
-// //    //Подключаем файл контроллера
-// //    $controllerFile = CONTROLLERS . $controller . EXT;
-
-// //     try {
-     
-// //       include_once($controllerFile);
-
-// //       $controller = new $controller;
-
-// //       try {
-// //           // код который может выбросить исключение
-// //           $controller->$action();  
-// //       } catch (Exception $e) {
-// //           // код который может обработать исключение
-// //           // если конечно оно появится
-// //         if (! method_exists($controller, $action)) {
-// //           throw new Exception(
-// //           "{$controller} does not respond to the {$action} action."
-// //           );
-// //         }
-// //       }
-      
-// //       $result = true;
-// //       break; 
-// //     } 
-// //     catch (Exception $e) {
-// //         // код который может обработать исключение
-// //         // если конечно оно появится
-// //         if (! file_exists($controllerFile)) {
-// //           throw new Exception("{$controllerFile} does not respond.");
-// //       }
-// //     } 
-
-// //    //  
-// //   }
-// // }
-   
-// // if($result === null){
-// //      require_once VIEWS.'404'.EXT;
-// // }
 
 // if(!$result){
 //      require_once VIEWS.'404'.EXT;
