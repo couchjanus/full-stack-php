@@ -23,10 +23,10 @@ class Router
         if (array_key_exists($uri, $this->routes)) {
             echo $this->routes[$uri];
             
-            var_dump(explode('@', $this->routes[$uri]));
+            // var_dump(explode('@', $this->routes[$uri]));
             return;
-            return $this->callAction(...explode('@', $this->routes[$uri]));
-            return $this->action(...explode('@', $this->routes[$uri]));
+            // return $this->callAction(...explode('@', $this->routes[$uri]));
+            // return $this->action(...explode('@', $this->routes[$uri]));
         
         }
 
