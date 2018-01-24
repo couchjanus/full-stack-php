@@ -26,8 +26,10 @@ $router->get('admin/category/add', 'Admin\shop\CategoriesController@create');
 $router->post('admin/category/add', 'Admin\shop\CategoriesController@create');
 $router->get('admin/category/edit/{id}', 'Admin\shop\CategoriesController@edit');
 $router->post('admin/category/edit/{id}', 'Admin\shop\CategoriesController@edit');
+
 $router->get('admin/category/delete/{id}', 'Admin\shop\CategoriesController@delete');
-$router->post('admin/category/delete/{id}', 'AdminCategoriesController@delete');
+
+$router->post('admin/category/delete/{id}', 'Admin\shop\CategoriesController@delete');
 
 $router->get('admin/posts', 'Admin\posts\PostController@index');
 $router->get('admin/posts/add', 'Admin\posts\PostController@add');
@@ -36,22 +38,3 @@ $router->get('admin/posts/delete/{id}', 'Admin\posts\PostController@delete');
 $router->post('admin/posts/add', 'Admin\posts\PostController@add');
 $router->post('admin/posts/edit/{id}', 'Admin\posts\PostController@edit');
 $router->post('admin/posts/delete/{id}', 'Admin\posts\PostController@delete');
-
-
-// $router->define([
-//     'contact' => 'ContactController@index',
-//     'about' => 'AboutController@index',
-//     'blog' => 'BlogController@index',
-//     'blog/search' => 'BlogController@search',
-//     'guestbook' => 'GuestbookController@index',
-//     'admin' => 'Admin\DashboardController@index',
-//     'admin/categories'=>'Admin\shop\CategoriesController@index',
-//     'admin/category/add' => 'Admin\shop\CategoriesController@create',
-//     'admin/products' => 'Admin\shop\ProductsController@index',
-//     'admin/product/add'=>'Admin\shop\ProductsController@create',
-//     'admin/posts' => 'Admin\posts\PostController@index',
-//     'admin/posts/add' => 'Admin\posts\PostController@add',
-//     //Главаня страница
-//     'index.php' => 'HomeController@index', 
-//     '' => 'HomeController@index',  
-// ]);
