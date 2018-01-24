@@ -37,4 +37,54 @@ class CategoriesController extends Controller{
         
     }
 
+    /**
+     * Удаление категории
+     *
+     * @param $id категории
+     * @return bool
+     */
+    public function delete ($vars) {
+
+        extract($vars);
+
+        if (isset($_POST['submit'])) {
+            Category::destroy($id);
+            //и перенаправляем на страницу категории
+            header('Location: /admin/categories');
+        }
+        $data['title'] = 'Admin Category Delete Page ';
+        $data['category_id'] = $id;
+
+        $this->_view->render('admin/categories/delete', $data);
+
+    }
+
+     /**
+     * Редактирование категории
+     *
+     * @param $id категории
+     * @return bool
+     */
+    public function edit ($vars) {
+        // Получаем список категорий для выпадающего списка
+
+        extract($vars);
+
+        $category = Category::get($id);
+
+        //Принимаем данные из формы
+        if (isset($_POST) and !empty($_POST)) {
+            $options['name'] = trim(strip_tags($_POST['name']));
+            $options['status'] = trim(strip_tags($_POST['status']));
+            Category::update($id, $options);
+
+            header('Location: /admin/categories');
+        }
+        $data['title'] = 'Admin Category Edit Page ';
+        $data['category'] = $category;
+
+        $this->_view->render('admin/categories/edit',$data);
+
+    }
+
 }

@@ -24,4 +24,4 @@ require_once CORE.'Router.php';
 $routesFile = CONFIG.'routes.php';
 
 Router::load($routesFile)
-    ->directPath(Request::uri());
+    ->directPath(Request::uri(), Request::method());
