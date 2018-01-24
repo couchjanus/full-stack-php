@@ -34,7 +34,7 @@ class CategoriesController extends Controller{
 
         $data['title'] = 'Admin Category Add New Category ';
         $this->_view->render('admin/categories/create', $data);
-        
+
     }
 
     /**
@@ -47,7 +47,7 @@ class CategoriesController extends Controller{
 
         extract($vars);
 
-        if (isset($_POST['submit'])) {
+        if (isset($_POST) and !empty($_POST)) {
             Category::destroy($id);
             //и перенаправляем на страницу категории
             header('Location: /admin/categories');
