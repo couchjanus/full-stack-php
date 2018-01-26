@@ -6,5 +6,11 @@
                   <li>
                     <a data-title='Управление категориями' href="/admin/categories"><i class="glyphicon glyphicon-list"></i> Categories</a>
                   </li>
+                  <li>
+                    <a data-title='Управление roles' href="/admin/roles"><i class="glyphicon glyphicon-list"></i> Roles</a>
+                  </li>
+                  <li>
+                    <a data-title='Управление users' href="/admin/users"><i class="glyphicon glyphicon-list"></i> Users</a>
+                  </li>
                 </ul>
              </div>

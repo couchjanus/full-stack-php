@@ -13,32 +13,31 @@ include_once VIEWS.'shared/admin/header.php';
         <div class="content-box-large">
                 <div class="panel-heading">
                     <div class="panel-title"><h3><?= $title;?></h3></div>
-                    <a href="/admin/products/add"><button class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus-sign"></i> Add New</button></a>
+                    <a href="/admin/users/add"><button class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus-sign"></i> Add New</button></a>
                 </div>
-                
+        
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table">
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th>Product Name</th>
-                              <th>Product Price</th>
+                              <th>User Name</th>
+                              <th>User Role</th>
                               <th>Action</th>
                             </tr>
                           </thead>
 
-        
                           <tbody class="table-items">
-                          <?php foreach ($products as $product):?>
+                          <?php foreach ($users as $user):?>
                             <tr>
-                              <td><?php echo $product['id']?></td>
-                              <td><?php echo $product['name']?></td>
-                              <td><?php echo $product['price']?></td>
+                              <td><?= $user['id']?></td>
+                              <td><?= $user['name']?></td>
+                              <td><?= $user['role_id']?></td>
                               <td>
                               <button class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> View</button>
-                              <a href="/admin/products/edit/<?php echo $product['id']?>"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</button></a>
-                              <a href="/admin/products/delete/<?php echo $product['id']?>"><button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Delete</button></a></td>
+                              <a href="/admin/users/edit/<?php echo $user['id']?>"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</button></a>
+                              <a href="/admin/users/delete/<?php echo $user['id']?>"><button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Delete</button></a></td>
                             </tr>
                             <?php endforeach;?>
                             

@@ -38,20 +38,21 @@ $router->post('admin/posts/edit/{id}', 'Admin\posts\PostController@edit');
 $router->post('admin/posts/delete/{id}', 'Admin\posts\PostController@delete');
 
 
-// $router->define([
-//     'contact' => 'ContactController@index',
-//     'about' => 'AboutController@index',
-//     'blog' => 'BlogController@index',
-//     'blog/search' => 'BlogController@search',
-//     'guestbook' => 'GuestbookController@index',
-//     'admin' => 'Admin\DashboardController@index',
-//     'admin/categories'=>'Admin\shop\CategoriesController@index',
-//     'admin/category/add' => 'Admin\shop\CategoriesController@create',
-//     'admin/products' => 'Admin\shop\ProductsController@index',
-//     'admin/product/add'=>'Admin\shop\ProductsController@create',
-//     'admin/posts' => 'Admin\posts\PostController@index',
-//     'admin/posts/add' => 'Admin\posts\PostController@add',
-//     //Главаня страница
-//     'index.php' => 'HomeController@index', 
-//     '' => 'HomeController@index',  
-// ]);
+$router->get('admin/roles', 'Admin\acl\RolesController@index');
+$router->get('admin/roles/add', 'Admin\acl\RolesController@add');
+$router->get('admin/roles/edit/{id}', 'Admin\acl\RolesController@edit');
+$router->get('admin/roles/delete/{id}', 'Admin\acl\RolesController@delete');
+
+$router->post('admin/roles/add', 'Admin\acl\RolesController@add');
+$router->post('admin/roles/edit/{id}', 'Admin\acl\RolesController@edit');
+$router->post('admin/roles/delete/{id}', 'Admin\acl\RolesController@delete');
+
+$router->get('admin/users', 'Admin\users\UsersController@index');
+$router->get('admin/users/add', 'Admin\users\UsersController@add');
+$router->post('admin/users/add', 'Admin\users\UsersController@add');
+
+$router->get('admin/users/edit/{id}', 'Admin\users\UsersController@edit');
+$router->post('admin/users/edit/{id}', 'Admin\users\UsersController@edit');
+
+$router->get('admin/users/delete/{id}', 'Admin\users\UsersController@delete');
+$router->post('admin/users/delete/{id}', 'Admin\users\UsersController@delete');

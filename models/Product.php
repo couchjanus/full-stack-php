@@ -102,6 +102,14 @@ class Product {
         }
     }
     
+    public static function nextId () {
+        $con = Connection::make();
+        // "SELECT fields FROM products ORDER BY id DESC LIMIT 1";
+        $res = $con->prepare("SELECT id FROM products ORDER BY id DESC LIMIT 1");
+        $res->execute();
+        return $res->fetch(PDO::FETCH_ASSOC)['id']+1;
+        // return $con->query("SELECT id FROM products ORDER BY id DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC)+1;
+    }
      /**
      * Общее кол-во товаров в магазине
      *
