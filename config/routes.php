@@ -10,6 +10,20 @@ $router->get('blog', 'BlogController@index');
 $router->post('blog/search', 'BlogController@search');
 $router->get('blog/{id}', 'BlogController@view');
 
+$router->get('login', 'UsersController@login');
+$router->post('login', 'UsersController@login');
+
+$router->get('register', 'UsersController@signup');
+$router->post('register', 'UsersController@signup');
+
+$router->get('profile', 'ProfileController@index');
+$router->get('profile/edit', 'ProfileController@edit');
+$router->post('profile/edit', 'ProfileController@edit');
+
+$router->get('logout', 'UsersController@logout');
+$router->post('logout', 'UsersController@logout');
+
+
 $router->get('admin', 'Admin\DashboardController@index');
 
 $router->get('admin/products', 'Admin\shop\ProductsController@index');

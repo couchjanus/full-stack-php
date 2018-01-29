@@ -10,5 +10,7 @@
     define('EXT', '.php');
     define('APPNAME', 'Great Shopaholic');
     define('SLOGAN', 'Lets Build Cool Site');
+
+    define('SESSION_PREFIX','shop_');
     
     
