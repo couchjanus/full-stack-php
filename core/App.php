@@ -9,11 +9,11 @@ class App {
     }
 
     public function init(){
-    
+
         $routesFile = CONFIG.'routes.php';
 
         Router::load($routesFile)
-            ->direct(Request::uri(), Request::method());
+            ->directPath(Request::uri(), Request::method());
 
     }
 }
