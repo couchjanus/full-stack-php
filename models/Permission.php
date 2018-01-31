@@ -16,12 +16,10 @@ class Permission {
     }
 
     
-    public static function delete ($id) {
+    public static function destroy ($id) {
         $db = Connection::make();
 
-        $sql = "
-                DELETE FROM permissions WHERE id = :id
-                ";
+        $sql = "DELETE FROM permissions WHERE id = :id";
 
         $res = $db->prepare($sql);
         $res->bindParam(':id', $id, PDO::PARAM_INT);
@@ -29,7 +27,7 @@ class Permission {
     }
 
 
-    public static function add ($options) {
+    public static function store ($options) {
 
         $db = Connection::make();
         // $db->exec("set names utf8");
@@ -63,7 +61,7 @@ class Permission {
         return $permission;
     }
 
-    public static function edit ($id, $options) {
+    public static function update ($id, $options) {
 
         $db = Connection::make();
         // $db->exec("set names utf8");
