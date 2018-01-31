@@ -1,518 +1,210 @@
 # full-stack-php
 
-# Что такое PHP?
-PHP это первоначально аббревиатура для Personal Home Pages (Личные Домашние Страницы), но в настоящее время это рекурсивный акроним для PHP: Hypertext Preprocessor (Гипертекстовый Препроцессор).
 
-http://php.net/
+```php
+<?php
 
-PHP был разработан датским гренландцем Rasmus Lerdorf. PHP это язык программирования общего назначения с открытым исходным кодом. PHP сконструирован специально для ведения Web-разработок и его код может внедряться непосредственно в HTML.
+$servername = "localhost";
+$username = "dev";
+$password = "ghbdtn";
+$dbname = "mydb";
 
-PHP отличается от JavaScript тем, что PHP-скрипты выполняются на сервере и генерируют HTML, который посылается клиенту.
+// Create TABLE categories
+$sql = "CREATE TABLE categories (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
+    status tinyint(1) NOT NULL,
+    PRIMARY KEY (id)
+);";
 
-Web-страницы, созданные с использованием PHP, обрабатываются как обычные HTML-страницы. Их можно создавать и изменять точно таким же образом, как и обычные страницы на HTML.
-
-# Что потребуется?
-
-## Серверы
-PHP это серверная/server-side технология. Следовательно, для работы РНР вам нужен сервер.
-
-Вы можете иметь сайт на сервере-хосте, поддерживающем РНР.
-
-Если у вас ещё нет вэб-сайта на сервере-хосте, можете создать бесплатную учётную запись на 000webhost.com, который поддерживает PHP.
-
-## Установить PHP на ваш компьютер
-
-Вот ссылки для загрузки и установки:
-
-- Windows Installation Guide http://php.net/manual/en/install.windows.php
-- Mac Installation Guide http://php.net/manual/en/install.macosx.php
-- Linux Installation Guide http://php.net/manual/en/install.unix.php
-
-## XAMPP
-
-### Установка XAMPP
-
-Загрузите XAMPP:
-
-- Установка и загрузка XAMPP для Windows http://www.apachefriends.org/en/xampp-windows.html
-- Установка и загрузка XAMPP для Mac http://www.apachefriends.org/en/xampp-macosx.html
-- Установка и загрузка XAMPP для Linux http://www.apachefriends.org/en/xampp-linux.html
-
-Просто следуйте инструкциям на экране в процессе установки.
-
-После загрузки и установки XAMPP можете стартовать сервер, сохранять ваши РНР-документы в папке c:\xampp\htdocs на вашем компьютере и получать к ним доступ в браузере по адресу http://localhost.
-
-## Open Server Panel
-
-https://ospanel.io/
-
-Open Server Panel — это портативная серверная платформа и программная среда, созданная специально для веб-разработчиков с учётом их рекомендаций и пожеланий. 
-
-## Laragon
-
-- https://sourceforge.net/projects/laragon/files/
-
-- https://sourceforge.net/projects/laragon/files/Portable/
-
-## Тест
-
-1. Откройте XAMPP Control Panel
-
-2. Стартуйте сервер Apache и MySql-сервер
-
-3. Создайте в текстовом редакторе файл test.php.
-
-4. Вставьте в файл следующий код:
-
-```html
-
-<?php echo "Hello World!"; ?>
-
+/* проверка соединения */
+try {
+    $connection = new PDO("mysql:host=localhost;dbname=$dbname", $username, $password);
+    echo "Connected successfully\n";
+    $connection->query($sql);
+    echo "Table Created successfully\n";
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "\n";
+    die();
+} finally {
+    // код, который будет выполнен при любом раскладе
+    $connection = null;
+}
+?>
 ```
-
-5. Сохраните его в папке "c:\xampp\htdocs".
-
-6. Откройте этот файл в браузере: http://localhost/test.php
-
-Если браузер выведет "Hello World!", значит установка прошла успешно, и вы можете запускать РНР на вашем компьютере. 
-
-При написании скриптов PHP необходимо сохранять файлы с расширением .php.
-
-
-# Код PHP
-
-Код PHP отделяется специальными начальным и конечным тегами, которые позволяют "переключаться" в "PHP-режим" и выходить из него.
-
-Чтобы включить в файл код PHP, необходимо заключить код PHP в специальные теги, которых различают 4 вида (они эквивалентны и можно использовать любые):
-
-# Директивы php.ini, которые вы можете использовать для настройки PHP. 
-
-## Инструкция обработки XML:
 
 ```php
 
 <?php
-    ...
-?>
 
-```
-## Инструкция обработки SGML:
-
-## Директива short_open_tag boolean
-
-    Определяет, разрешается ли короткая форма записи (<? ?>) тегов PHP. Если вы хотите использовать PHP совместно с XML, вы можете отключить эту опцию, чтобы беспрепятственно использовать <?xml ?>. В противном случае, вы можете отобразить это при помощи PHP, например: <?php echo '<?xml version="1.0"?>'; ?>. Если же эта опция отключена, вы должны использовать длинную форму открывающего тега PHP (<?php ?>).
-
-    Эта директива также влияла на сокращение <?= до версии PHP 5.4.0, которое идентично записи <? echo. Для использования этого сокращения должна была быть включена директива short_open_tag. Начиная с версии PHP 5.4.0 запись <?= стала доступна всегда.
-
-
-```php
-<?
-    ...
-?>
-```
-## Инструкция обработки сценариев HTML:
-
-## Директива asp_tags boolean
-
-    Включает использование тегов в стиле ASP в дополнение к обычным тегам <?php ?>. Это касается и сокращения для отображения значения переменных <%= $value %>.
-
-```js
-
-  <script language = "php">
-      ...
-  </script>
-
-```
-## Инструкция в стиле ASP:
-```php
-<%
-    ...
-%>
-```
-## Пишем код PHP
-
-Скриптовый блоки  PHP могут быть размещены в любом месте документа.
-
-```php
-
-  <?php
-  тело программы
-  ?>
-
-```
-
-PHP файл обычно содержит HTML-теги, так же, как HTML-файл, и некоторый код PHP-скриптов.
-```html
-
-  <html>
-  <body>
-    <?php
-    echo "Hello World";
-    ?>
-  </body>
-  </html>
-```
-
-Каждый код строки в PHP должны заканчиваться точкой с запятой.Точка с запятой является разделителем и используется, чтобы отличить один набор инструкций от другого. 
-
-Существуют два основных положения для вывода текста с помощью PHP: echo() и print(). 
-
-
-```html
-
-  <html>
-  <body>
-    <?php
-    print "Hello World";
-    ?>
-  </body>
-  </html>
-
-```
- 
-
-## Комментарии в PHP
-В PHP, мы используем // , чтобы сделать однострочный комментарий или /* и */, чтобы сделать большой блок комментариев. Комментарии нужны чтобы писать пояснение в коде, сами комментарии на выполнение кода не влияют и не выводятся.
-```html
-
-  <html>
-  <body>
-    <?php
-    //Это комментарий
-    /*
-    Это
-     
-    тоже
-     
-    комментарий
-    */
-    ?>
-  </body>
-  </html>
-
-```
-## Переменные в PHP
-
-Переменные PHP используются для хранения значений, таких как текстовые строки, числа или массивы. Когда переменная объявлена, она может быть использована снова и снова в вашем скрипте. Все переменные в PHP начинаются с символа $.
-
-Переменной называется величина, значение которой меняется в процессе исполнения кода программы.
-
-Переменные - это некоторые данные, обрабатываемые в программе и имеющие имя. В зависимости от типа данных, программа после объявления переменных, выделяет определённое количество ячеек в памяти, для хранения этих переменных.
-
-
-## Правильный способ объявления переменных в PHP:
-```php
-
-  $var_name = value;
-```
-
-Одинарный знак = является оператором присваивания, то есть мы говорим на языке PHP: переменной var_name присваиваем значение value.
-
-Когда мы объявляем строковую переменную, то мы должны строку заключить в кавычки, одинарные или двойные разницы не имеет, главное что если начинается с одинарной, то и заканчивается одинарной, начинается с двойной - заканчивается с двойной. Числовые переменные мы пишем без кавычек.
-
-```php
-
-  <?php
-  $txt="Hello World!";
-  $x=16;
-  print $txt;
-  echo $x;
-  ?>
-```
-
-В PHP переменная создается автоматически, когда вы ее используете. Правила именования для переменных:
-
-- Имя переменной должно начинаться с буквы или символа подчеркивания "_"
-- Имя переменной может содержать только буквенный-цифровые символы и знак подчеркивания (А-Я, AZ, 0-9, и _)
-- Имя переменной не должно содержать пробелов. Если имя переменной более одного слова, она должна быть разделена подчеркиванием ($ my_string), или с капитализацией ($myString).
-
-PHP является слабо типизированным языком.  В PHP переменные не должны быть объявлены перед добавлением значения. PHP автоматически преобразует переменную в правильный тип данных, в зависимости от его значения. 
-
-
-# Строки
-## Конкатенация (сцепление)
-Если ваша строка на одной строке занимает не рекомендуемую длину (120 символов), используйте конкатенацию.
-Для удобства чтения лучше использовать конкатенацию, чем операторы присваивания.
-Если используете новую строку при сцеплении строк, делайте относительно оригинальной строки отступы.
-
-```php
-
-    <?php
-    $a  = 'Multi-line example';    // Оператор сцепления строк (.=)
-    $a .= "\n";
-    $a .= 'of what not to do';
-
-    vs.
-
-    $a = 'Multi-line example'      // Оператор объединения (.)
-        . "\n"                     // используя новые строки.
-        . 'of what to do';
-```
-
-## Тип строки.
-
-### Одиночные кавычки
-Часто самый быстрый способ отделить строку - эта использовать одинарные кавычки. Скорость заключается в том, что PHP не анализирует строку (не ищет в ней переменные). Одинарные кавычки лучше всего подходят для:
-
-- строк, которые не нужно анализировать,
-- имён переменных, которые нужно написать как текст.
-
-```php
-
-  <?php
-  echo 'Посмотрите как прекрасна моя симпатичная строка.';    // анализ этой строке не нужен.
-
-  /**
-   * Выведет:
-   *
-   * Посмотрите как прекрасна моя симпатичная строка.
-   */
-
-```
-### Двойные кавычки
-Двойные кавычки, как швейцарский нож. Они лучше всего используются для:
-
-- Escaped strings
-- строк с использованием переменных,
-- использования Condensing multi-line concatenation, для удобство просмотра кода.
-
-```php
-
-    <?php
-    echo 'phptherightway is ' . $adjective . '.'     // эта строка использует multiple concatenating для
-        . "\n"                                       // отделения переменных от строки.
-        . 'I love learning' . $code . '!';
-
-    vs.
-
-    echo "phptherightway is $adjective.\n I love learning $code!"  // А тут используются двойные кавычки.
-```
-При использовании двойных кавычек часто бывает, что переменную нужно использовать в чуть изменнёном виде. Но при анализе строки PHP не сможет определить, что это переменная. Для решения этой проблемы оберните переменную в фигурные скобки.
-
-```php 
-
-    <?php
-    $juice = 'plum';
-    echo "I drank some juice made of $juices";    // $juices не определена
-
-    vs.
-
-    $juice = 'plum';
-    echo "I drank some juice made of {$juice}s";    // $juice будет анализирована.
-
-    /**
-     * Комплексные переменные также оборачивайте в фигурные скобки.
-     */
-
-    $juice = array('apple', 'orange', 'plum');
-    echo "I drank some juice made of {$juice[1]}s";   // $juice[1] будет анализирована.
-
-```
-
-## Получение информации о системе из PHP
-
-```php
-  <?php phpinfo(); ?>
-```
-
-## $_SERVER
-
-$_SERVER - специальная зарезервированная переменная PHP, которая содержит всю информацию, полученную от Web-сервера. Её также называют суперглобальной.
-
-
-### Вывод значения переменной (элемента массива)
-
-```php
-
-<?php
-  echo $_SERVER['HTTP_USER_AGENT'];
+$servername = "localhost";
+$username = "dev";
+$password = "ghbdtn";
+$dbname = "mydb";
+
+// Create TABLE products
+$sql = "CREATE TABLE products (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
+    status tinyint(1) NOT NULL,
+    category_id int(11) UNSIGNED DEFAULT NULL,
+    price float UNSIGNED NOT NULL,
+    brand varchar(255) NOT NULL,
+    description text NOT NULL,
+    is_new tinyint(1) NOT NULL DEFAULT '1',
+    is_recommended tinyint(1) NOT NULL DEFAULT '0'
+    PRIMARY KEY (id)
+);";
+
+
+/* проверка соединения */
+try {
+    $connection = new PDO("mysql:host=localhost;dbname=$dbname", $username, $password);
+    echo "Connected successfully\n";
+    $connection->query($sql);
+    echo "Table Created successfully\n";
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "\n";
+    die();
+} finally {
+    // код, который будет выполнен при любом раскладе
+    $connection = null;
+}
 ?>
 ```
 
-### Пример использования управляющих структур и функций
 ```php
 
-  <?php
-    if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE) {
-        echo 'Вы используете Internet Explorer.<br />';
+return [
+    'database' => [
+        'name' => 'mydb',
+        'username' => 'dev',
+        'password' => 'ghbdtn',
+        'connection' => 'mysql:host=localhost',
+        'options' => [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]
+    ]
+];
+```
+
+```php
+
+ <?php
+
+ class Connection
+ {
+  public static function make()
+  {
+    $db = include CONFIG.'db.php';
+
+    $config = $db['database'];
+
+    try {
+      return new PDO(
+        $config['connection'].';dbname='.$config['name'],
+        $config['username'],
+        $config['password'],
+        $config['options']
+      );
+
+    } catch (PDOException $e) {
+      die($e->getMessage());
     }
-  ?>
-```
-
-strpos() - встроенная в PHP функция, которая ищет одну строку в другой. В данном случае мы ищем строку 'MSIE' (needle) в $_SERVER (haystack). Если "иголка" найдена внутри "сена", функция возвращает позицию "иголки" относительно начала "сена". В противном случае она возвращает FALSE. Если она не вернет FALSE, то условие в if окажется истинным (TRUE), и код в фигурных скобках ({ }) выполнится. В противном случае этот код не выполняется. 
-
-
-### Смешение режимов HTML и PHP
-
-```html
-
-  <?php
-  if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE) {
-  ?>
-  <h3>strpos(), должно быть, вернул не false</h3>
-  <p>Вы используете Internet Explorer</p>
-  <?php
-  } else {
-  ?>
-  <h3>strpos() вернул false</h3>
-  <p>Вы не используете Internet Explorer</p>
-  <?php
   }
-  ?>
-```
-
-## Операторы сравнения
-```php
-
-  <?php
-  $a = 5;   // 5 как целое число (integer)
-
-  var_dump($a == 5);       // Сравниваются значения; Вернёт true
-  var_dump($a == '5');     // Сравниваются значения (игнорируя типы); Вернёт true
-  var_dump($a === 5);      // Сравниваются типы и значения (integer vs. integer); Вернёт true
-  var_dump($a === '5');    // Сравниваются типы и значения (integer vs. string); Вернёт false
-
-  /**
-   * Строгое сравнение
-   */
-  if (strpos('testing', 'test')) {    // 'test' находится в 0 позиции, результатом будет 'false'
-      // Ваш код...
-  }
-
-  vs.
-
-  if (strpos('testing', 'test') !== false) {    // Результатом будет 'true', т.к. тут строгое сравнение (0 !== false)
-      // Ваш код...
-  }
+ }
 
 ```
-
-# Условные операторы
-## Оператор “If”
 
 ```php
-  <?php
-  function test($a)
-  {
-      if ($a) {
-          return true;
-      } else {
-          return false;
-      }
-  }
+<?php
 
-  vs.
+class View {
 
-  function test($a)
-  {
-      if ($a) {
-          return true;
-      }
-      return false;    // else использовать не обязательно
-  }
+    public function render($path, $data = [], $error = false){
+        extract($data);
+        return require VIEWS."/{$path}.php";
+    }
+
+}
+
 ```
 
-## Оператор “Switch”
-Оператор “Switch” является отличным способом, чтобы не использовать много операторов “if” с использованием “elseif”, но необходимо знать некоторые вещи:
-
-- Оператор “Switch” сравнивает только значения, но не типы данных (равнозначно логической операции ‘==’)
-- Этот оператор сравнивает выражение с каждым значением, пока не найдёт нужное. Если не нашёл, использует “default” (если определён)
-- Без использования ‘break’, выражение будет сравниваться со всеми значениями по-порядку, пока не встретит “break” или “return”
-- Если вы используете для возврата результата ‘return’ то ‘break’ можно опустить.
-
 ```php
-    <?php
-    $answer = test(2);    // Этот код выберет 'case 2' и 'case 3'.
+<?php
 
-    function test($a)
+class Controller {
+
+    protected $_view;
+    
+    function __construct()
     {
-        switch ($a) {
-            case 1:
-                // Код...
-                break;             // Прекратит выполнение switch тут если $a == 1, т.к. используется 'break'
-            case 2:
-                // Код...         // Код без 'break', поэтому будет выполнено сравнение с 'case 3'
-            case 3:
-                // Код...
-                return $result;    // within a function, 'return' will end the function
-            default:
-                // Код...
-                return $error;
-        }
+        $this->_view = new View();
     }
-```
 
-## Тернарный оператор
-Тернарный оператор (‘(expr1) ? (expr2) : (expr3)’) используется для удобства объединения кода в одну строку, но часто избыточен. Хоть он может быть вложенным, рекомендуется его использовать один на строку.
+    // действие (action), вызываемое по умолчанию
+    function actionIndex()
+    {
+        // todo
+    }
+}
+
+
+```
+```php
+<?php
+
+class AboutController extends Controller
+{
+    public function index()
+    {
+        $title = 'SHOPAHOLIC <b>ABOUT PAGE</b>';
+        
+        $this->_view->render('home/about', ['title'=>$title]);
+    }
+    
+}
+
+
+```
 
 ```php
 
-    <?php
-    $a = 5;
-    echo ($a == 5) ? 'yay' : 'nay';
+<?php
 
-    vs.
+class HomeController extends Controller
+{
+    
+    public function index()
+    {   
+        $title = 'Our <b>Cat Members</b>';
 
-    //Вложения
-    $b = 10;
-    echo ($a) ? ($a == 5) ? 'yay' : 'nay' : ($b == 10) ? 'excessive' : ':(';    // Вложения трудно читаемы.
+        $this->_view->render('home/index', ['title'=>$title]);
+
+    }
+    
+}
+
 ```
-
-Используя ‘return’ будьте внимательны:.
 
 ```php
 
-  <?php
-  $a = 5;
-  echo ($a == 5) ? return true : return false;    // этот пример будет выдавать сообщение об ошибке
+<?php
 
-  vs.
+if (function_exists('date_default_timezone_set')){
+    date_default_timezone_set('Europe/Kiev');    
+}
 
-  $a = 5;
-  return ($a == 5) ? 'yay' : 'nope';    // этот пример вернёт 'yay'
 
-```
+// Общие настройки
+ini_set('display_errors',1);
+error_reporting(E_ALL);
 
-# .htaccess
 
-```bash
+require_once realpath(__DIR__).'/../config/app.php';
 
-    Options +FollowSymlinks
-    RewriteEngine On
-    # RewriteBase /
-
-    # Exclude directories from rewrite rules
-    RewriteRule ^(css|i|js|storages|assets) - [L]
-
-    # For Friendly URLs
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]
-
-```
-
-# nginx configuration
-
-```bash
-
-    location /css {
-    }
-
-    location /i {
-    }
-
-    location /js {
-    }
-
-    location /storages {
-    }
-
-    location /assets {
-    }
-
-    location / {
-      if (!-e $request_filename){
-        rewrite ^(.*)$ /index.php?route=$1 break;
-      }
-    }
+require_once CORE.'Connection.php';
+require_once CORE.'View.php';
+require_once CORE.'Controller.php';
+require_once CORE.'Router.php';
 ```
