@@ -61,6 +61,17 @@ $router->post('admin/roles/add', 'Admin\acl\RolesController@add');
 $router->post('admin/roles/edit/{id}', 'Admin\acl\RolesController@edit');
 $router->post('admin/roles/delete/{id}', 'Admin\acl\RolesController@delete');
 
+$router->get('admin/permissions', 'Admin\acl\PermissionsController@index');
+$router->get('admin/permissions/add', 'Admin\acl\PermissionsController@add');
+$router->get('admin/permissions/edit/{id}', 'Admin\acl\PermissionsController@edit');
+$router->get('admin/permissions/delete/{id}', 'Admin\acl\PermissionsController@delete');
+
+$router->post('admin/permissions/add', 'Admin\acl\PermissionsController@add');
+$router->post('admin/permissions/edit/{id}', 'Admin\acl\PermissionsController@edit');
+$router->post('admin/permissions/delete/{id}', 'Admin\acl\PermissionsController@delete');
+
+
+
 $router->get('admin/users', 'Admin\users\UsersController@index');
 $router->get('admin/users/add', 'Admin\users\UsersController@add');
 $router->post('admin/users/add', 'Admin\users\UsersController@add');

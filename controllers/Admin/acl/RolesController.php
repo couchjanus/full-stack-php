@@ -1,5 +1,6 @@
 <?php
 
+
 class RolesController extends Controller{
 
     public function index (){
@@ -13,7 +14,7 @@ class RolesController extends Controller{
         extract($vars);
 
         if (isset($_POST['submit'])) {
-            Role::destroy($id);
+            Role::delete($id);
             header('Location: /admin/roles');
         }
         $data['title'] = 'Admin Role Delete Page ';
@@ -28,12 +29,12 @@ class RolesController extends Controller{
         if (isset($_POST) and !empty($_POST)) {
             $options['name'] = trim(strip_tags($_POST['name']));
 
-            Role::store($options);
+            Role::add($options);
             header('Location: /admin/roles');
         }
         $data['title'] = 'Admin Role Add Page ';
        
-        $this->_view->render('admin/roles/create',$data);
+        $this->_view->render('admin/roles/add',$data);
         
     }
 
@@ -41,16 +42,25 @@ class RolesController extends Controller{
        
         extract($vars);
 
-        $role = Role::get($id);
-     
+        list($role, $perms) = Role::get($id);
+        $permissions = Permission::index();
+
         if (isset($_POST) and !empty($_POST)) {
             $options['name'] = trim(strip_tags($_POST['name']));
      
-            Role::update($id, $options);
+            Role::edit($id, $options);
+            
+            if(!empty($_POST['check_list'])){
+                foreach($_POST['check_list'] as $selected){
+                Role::insertPerm($id, $selected);
+                }
+             }
             header('Location: /admin/roles');
         }
         $data['title'] = 'Admin Category Edit Page ';
         $data['role'] = $role;
+        $data['perms'] = $perms;
+        $data['permissions'] = $permissions;
         $this->_view->render('admin/roles/edit',$data);
 
     }

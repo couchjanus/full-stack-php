@@ -4,7 +4,7 @@
  * Модель для работы с пользователями
  */
 class User {
-   
+
    private $role;
 
    protected static function encryptPw($password)
@@ -17,7 +17,7 @@ class User {
         $resp = password_verify($userpassword, $dbpassword);
         return $resp;
     }
-  
+
     public static function index () {
         try {
             $con = Connection::make();
@@ -35,7 +35,7 @@ class User {
             $db = Connection::make();
             $sql = "INSERT INTO users(name, email, password, role_id)
                 VALUES(:name, :email, :password, :role)";
-    
+
             $res = $db->prepare($sql);
             $res->bindParam(':name', $options['name'], PDO::PARAM_STR);
             $res->bindParam(':email', $options['email'], PDO::PARAM_STR);
@@ -115,7 +115,7 @@ class User {
             $db = Connection::make();
             $passwordFromDatabase = self::getUserPassword($userId);
             $password = $options['password'];
-            
+
             if(!self::checkPw($options['password'], $passwordFromDatabase)){
                 $password = self::encryptPw($options['password']);
             }
@@ -188,7 +188,7 @@ class User {
        }
        return true;
    }
-  
+
     /**
      * Проверяем поле Имя на корректность
      *
@@ -264,11 +264,21 @@ class User {
         $res->bindParam(':email', $email, PDO::PARAM_STR);
         $res->execute();
         $user = $res->fetch();
-        
+
         if(!self::checkPw($password, $user['password'])){
             return $user['id'];
         }
         return false;
     }
+
+    // check if user has a specific privilege
+
+    public function hasPrivilege($perm) {
+        if ($this->role->hasPerm($perm)) {
+            return true;
+        }
+        return false;
+    }
+
 
 }
