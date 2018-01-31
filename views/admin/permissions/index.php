@@ -1,36 +1,55 @@
 <?php
-include_once VIEWS.'/shared/admin/header.php';
+include_once VIEWS.'shared/admin/header.php';
 ?>
+    <div class="page-content">
+      <div class="row">
+      <div class="col-md-2">
+        <?php
+          include_once VIEWS.'shared/admin/_aside.php';
+        ?>
+
+      </div>
+      <div class="col-md-10">
+        <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title"><h3><?= $title;?></h3></div>
+                    <a href="/admin/permissions/add"><button class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus-sign"></i> Add New</button></a>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Name</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+
+
+                          <tbody class="table-items">
+                          <?php foreach ($permissions as $permission):?>
+                            <tr>
+                              <td><?php echo $permission['id']?></td>
+                              <td><?php echo $permission['name']?></td>
+
+                              <td>
+                              <button class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> View</button>
+                              <a href="/admin/permissions/edit/<?php echo $permission['id']?>"><button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</button></a>
+                              <a href="/admin/permissions/delete/<?php echo $permission['id']?>"><button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Delete</button></a></td>
+                            </tr>
+                            <?php endforeach;?>
+
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         <main>
-            <h1><?= $title;?></h1>
+
         </main>
-       
-
-<article class='large'>
-        <a href="/admin/permissions/add" class="add_item"><i class="fa fa-plus fa-2x" aria-hidden="true"></i> Добавить permission
-        </a>
-        <h4>Список permissions</h4>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Название permission</th>
-            </tr>
-
-            <?php foreach ($permissions as $permission):?>
-                <tr>
-                    <td><?php echo $permission['id']?></td>
-                    <td><?php echo $permission['name']?></td>
-                    <td><a title="Редактировать" href="/admin/permissions/edit/<?php echo $permission['id']?>">
-                        <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
-                    </td>
-                    <td><a title="Удалить" href="/admin/permissions/delete/<?php echo $permission['id']?>" class="del"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a>
-                    </td>
-                </tr>
-            <?php endforeach;?>
-        </table>
-</article>
 
 <?php
-
-include_once VIEWS.'/shared/admin/footer.php';
-
+include_once VIEWS.'shared/admin/footer.php';
