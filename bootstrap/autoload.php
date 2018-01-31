@@ -1,12 +1,12 @@
 <?php
 // подключаем файлы ядра
 function autoloadsystem($class) {
-    $filename = ROOT . "/core/" . $class . ".php";
+    $filename = CORE .  $class . EXT;
     if(file_exists($filename)){
-       require $filename;
+       require_once $filename;
     }
-    $filename = ROOT . "/models/" . $class . ".php";
+    $filename = MODELS . $class . EXT;
     if(file_exists($filename)){
-       require $filename;
+       require_once $filename;
     }
  }
