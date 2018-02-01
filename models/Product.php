@@ -45,8 +45,7 @@ class Product {
 
         $con = Connection::make();
 
-        $sql = "
-                SELECT id, name, price, is_new, description
+        $sql = "SELECT *
                   FROM products
                     WHERE status = 1
                       ORDER BY id DESC
@@ -78,11 +77,11 @@ class Product {
         $con = Connection::make();
 
         $sql = "INSERT INTO products(
-                name, category_id, price, brand,
+                name, category_id, price, brand, picture,
                 description, is_new, status
                 )
                 VALUES (:name, :category_id, :price,
-                :brand, :description, :is_new, :status)";
+                :brand, :picture, :description, :is_new, :status)";
 
         $res = $con->prepare($sql);
 
@@ -90,6 +89,7 @@ class Product {
         $res->bindParam(':category_id', $options['category'], PDO::PARAM_INT);
         $res->bindParam(':price', $options['price'], PDO::PARAM_INT);
         $res->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
+        $res->bindParam(':picture', $options['picture'], PDO::PARAM_STR);
         $res->bindParam(':description', $options['description'], PDO::PARAM_STR);
         $res->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
         $res->bindParam(':status', $options['status'], PDO::PARAM_INT);
@@ -101,7 +101,15 @@ class Product {
             return 0;
         }
     }
-    
+
+    public static function nextId () {
+        $con = Connection::make();
+        // "SELECT fields FROM products ORDER BY id DESC LIMIT 1";
+        $res = $con->prepare("SELECT id FROM products ORDER BY id DESC LIMIT 1");
+        $res->execute();
+        return $res->fetch(PDO::FETCH_ASSOC)['id']+1;
+        // return $con->query("SELECT id FROM products ORDER BY id DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC)+1;
+    }
      /**
      * Общее кол-во товаров в магазине
      *
@@ -122,6 +130,81 @@ class Product {
         $row = $res->fetch();
         return $row['count'];
     }
+
+    /**
+     * Выбираем товар по идентификатору
+     *
+     * @param $productId
+     * @return mixed
+     */
+    public static function getProductById ($productId) {
+
+        $con = Connection::make();
+
+        $sql = "SELECT * FROM products WHERE id = :id";
+
+        $res = $con->prepare($sql);
+        $res->bindParam(':id', $productId, PDO::PARAM_INT);
+        $res->execute();
+
+        $product = $res->fetch(PDO::FETCH_ASSOC);
+
+        return $product;
+    }
+
+    /**
+     * Изменение товара
+     *
+     * @param $id
+     * @param $options
+     * @return bool
+     */
+    public static function update ($id, $options) {
+
+        $con = Connection::make();
+
+        $sql = "UPDATE products
+                SET
+                    name = :name,
+                    category_id = :category,
+                    price = :price,
+                    brand = :brand,
+                    picture = :picture,
+                    description = :description,
+                    is_new = :is_new,
+                    status = :status
+                WHERE id = :id";
+
+        $res = $con->prepare($sql);
+
+        $res->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $res->bindParam(':category', $options['category'], PDO::PARAM_INT);
+        $res->bindParam(':price', $options['price'], PDO::PARAM_INT);
+        $res->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
+        $res->bindParam(':picture', $options['picture'], PDO::PARAM_STR);
+        $res->bindParam(':description', $options['description'], PDO::PARAM_STR);
+        $res->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
+        $res->bindParam(':status', $options['status'], PDO::PARAM_INT);
+        $res->bindParam(':id', $id, PDO::PARAM_INT);
+
+        return $res->execute();
+    }
+    /**
+     * Удаление товара(админка)
+     *
+     * @param $id
+     * @return bool
+     */
+    public static function destrot ($id) {
+        $con = Connection::make();
+
+        $sql = "DELETE FROM products WHERE id = :id";
+
+        $res = $con->prepare($sql);
+        $res->bindParam(':id', $id, PDO::PARAM_INT);
+        return $res->execute();
+    }
+
 
 
 }

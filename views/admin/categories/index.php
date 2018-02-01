@@ -1,41 +1,48 @@
 <?php
 include_once VIEWS.'shared/admin/header.php';
 ?>
-        <main>
-            <h1><?= $title;?></h1>
-        </main>
-       
+    <div class="page-content">
+      <div class="row">
+      <div class="col-md-2">
+        <?php
+          include_once VIEWS.'shared/admin/_aside.php';
+        ?>
 
-<article class='large'>
-        <a href="/admin/category/add" class="add_item"><i class="fa fa-plus fa-2x" aria-hidden="true"></i> Добавить категорию
-        </a>
-        <h4>Список категорий</h4>
-        <table>
-            <tr>
-                <th>ID категории</th>
-                <th>Название категории</th>
-                <th>Статус</th>
-            </tr>
+      </div>
+      <div class="col-md-10">
+        <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title"><h3><?= $title;?></h3></div>
+                    <a href="/admin/categories/create"><button class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus-sign"></i> Add New</button></a>
+                </div>
+                
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Category Name</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
 
-            <?php foreach ($categories as $category):?>
-                <tr>
-                    <td><?php echo $category['id']?></td>
-                    <td><?php echo $category['name']?></td>
-                    <td>
-                        <?php echo Category::getStatusText($category['status']);?>
-                    </td>
-                    <td><a title="Редактировать" href="" class="del">
-                            <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                        </a></td>
-                    <td><a title="Удалить" href="" class="del">
-                            <i class="fa fa-times fa-2x" aria-hidden="true"></i>
-                        </a></td>
-                </tr>
-            <?php endforeach;?>
-        </table>
-</article>
-
+                          <tbody class="table-items">
+                          <?php foreach ($categories as $category):?>
+                            <tr>
+                              <td><?php echo $category['id']?></td>
+                              <td><?php echo $category['name']?></td>
+                              <td>
+                              <button class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i> View</button>
+                              <button class="btn btn-info"><i class="glyphicon glyphicon-refresh"></i> Update</button>
+                              <button class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
+                              <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Delete</button></td>
+                            </tr>
+                            <?php endforeach;?>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 <?php
-
 include_once VIEWS.'shared/admin/footer.php';
-

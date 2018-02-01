@@ -6,23 +6,20 @@
 
 class Post {
 
-    
+
     public static function index () {
-        
+
         $con = Connection::make();
         //Подготавливаем данные
 
         $sql = "SELECT id, title, content, DATE_FORMAT(`created_at`, '%d.%m.%Y %H:%i:%s') AS formated_date, status FROM posts ORDER BY id ASC";
 
-        // $con->exec("set names utf8mb4");
-        
         //Выполняем запрос
         $res = $con->query($sql);
+
         //Получаем и возвращаем результат
         $posts = $res->fetchAll(PDO::FETCH_ASSOC);
-
         return $posts;
-
     }
 
     public static function store ($options) {
@@ -64,7 +61,7 @@ class Post {
         $sql = "SELECT id, title, DATE_FORMAT(`created_at`, '%d.%m.%Y %H:%i:%s') AS formated_date FROM posts WHERE status = 1 and ((title LIKE '%{$query}%') OR (content LIKE '%{$query}%'))";
 
         $res = $db->prepare($sql);
-        
+
         $res->execute();
 
         $posts = $res->fetchAll(PDO::FETCH_ASSOC);

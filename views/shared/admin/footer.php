@@ -1,26 +1,22 @@
-</main>
-<script src="/js/jquery.min.js"></script>
-<script>
+    <footer>
+         <div class="container">
 
-$(document).ready( function() {
+            <div class="copy text-center">
+               Copyright 2017 <a href='#'>Website</a>
+            </div>
 
-$('body').on("click", ".larg div h3", function(){
-  if ($(this).children('span').hasClass('close')) {
-    $(this).children('span').removeClass('close');
-  }
-  else {
-    $(this).children('span').addClass('close');
-  }
-  $(this).parent().children('p').slideToggle(250);
-});
+         </div>
+      </footer>
 
-$('body').on("click", "nav ul li a", function(){
-  var title = $(this).attr('data-title');
-  console.log(title);
-  $('.title').children('h2').html(title);
-});
-});
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')</script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- <script src="/js/popper.min.js"></script> -->
 
-</script>
-</body>
+  <script>
+  </script>
+  </body>
 </html>
