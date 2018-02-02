@@ -19,7 +19,7 @@ class Product {
         $con = Connection::make();
         $con->exec("set names utf8mb4");
 
-        $sql = "SELECT id, name, price FROM products
+        $sql = "SELECT * FROM products
                 ORDER BY id ASC";
 
         $res = $con->query($sql);
@@ -47,9 +47,9 @@ class Product {
 
         $sql = "SELECT *
                   FROM products
-                    WHERE status = 1
-                      ORDER BY id DESC
-                        LIMIT :limit OFFSET :offset
+                  WHERE status = 1
+                  ORDER BY id DESC
+                  LIMIT :limit OFFSET :offset
                 ";
 
         //Подготавливаем данные
@@ -78,8 +78,7 @@ class Product {
 
         $sql = "INSERT INTO products(
                 name, category_id, price, brand, picture,
-                description, is_new, status
-                )
+                description, is_new, status)
                 VALUES (:name, :category_id, :price,
                 :brand, :picture, :description, :is_new, :status)";
 
@@ -93,9 +92,9 @@ class Product {
         $res->bindParam(':description', $options['description'], PDO::PARAM_STR);
         $res->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
         $res->bindParam(':status', $options['status'], PDO::PARAM_INT);
-        //Если запрос выполнен успешно
+        // Если запрос выполнен успешно
         if ($res->execute()) {
-            //Возвращаем id последней записи, переходим на страницу этого товара, если все успешно
+            // Возвращаем id последней записи
             return $con->lastInsertId();
         } else {
             return 0;
@@ -108,7 +107,7 @@ class Product {
         $res = $con->prepare("SELECT id FROM products ORDER BY id DESC LIMIT 1");
         $res->execute();
         return $res->fetch(PDO::FETCH_ASSOC)['id']+1;
-        // return $con->query("SELECT id FROM products ORDER BY id DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC)+1;
+        return $con->query("SELECT id FROM products ORDER BY id DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC)+1;
     }
      /**
      * Общее кол-во товаров в магазине
@@ -204,7 +203,5 @@ class Product {
         $res->bindParam(':id', $id, PDO::PARAM_INT);
         return $res->execute();
     }
-
-
 
 }

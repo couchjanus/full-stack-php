@@ -53,17 +53,45 @@ class ProductsController extends Controller {
               if($file_size > 2097152){
                  $errors[]='File size must be excately 2 MB';
               }
-
+              
+              // Если 
+              
               if(empty($errors)==true){
+
+            //     $dirId = Product::nextId();
+
+            //     $dir = $_SERVER['DOCUMENT_ROOT'] ."/media/products/".$dirId."/";
+                    
+            //     if (!is_dir($dir)) {
+            //             mkdir($dir, 0777, true);
+            //     }
+                
+            //     // Проверим, загружалось ли через форму изображение
+            //     if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
+            //     // Если загружалось, переместим его в нужную папку, дадим новое имя
+            //         move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/media/products/{$dirId}/{$file_name}");
+            //     }
+                    
+            //     $options['picture'] = $file_name;
+                    
+            //     Product::store($options);
+            //     header('Location: /admin/products');
+            //   }
+            //   else{
+            //         if(isset($_SERVER['HTTP_REFERER'])) {
+            //             $previous = $_SERVER['HTTP_REFERER'];
+            //         }
+            //         header("Location: $previous");
+            //   }
+//
+
                  move_uploaded_file($file_tmp,"media/".$file_name);
                  $options['picture'] = $file_name;
 
               }else{
                  print_r($errors);
               }
-           }
-
-
+            }
 
             Product::store($options);
 

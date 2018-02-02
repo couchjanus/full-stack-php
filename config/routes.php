@@ -1,6 +1,10 @@
 <?php
 
 $router->get('', 'HomeController@index');
+
+$router->get('page-{page}', 'HomeController@index');
+
+$router->get('api/shop', 'HomeController@getProduct');
 $router->get('about', 'AboutController@index');
 $router->get('contact', 'ContactController@index');
 
