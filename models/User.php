@@ -82,7 +82,7 @@ class User {
     public static function getUserById ($userId) {
         try {
             $db = Connection::make();
-            $sql = "SELECT name, email FROM users WHERE id = :id";
+            $sql = "SELECT * FROM users WHERE id = :id";
 
             $res = $db->prepare($sql);
             $res->bindParam(':id', $userId);

@@ -151,6 +151,9 @@ class Product {
         return $product;
     }
 
+    
+    
+
     /**
      * Изменение товара
      *
@@ -204,4 +207,30 @@ class Product {
         return $res->execute();
     }
 
+        /**
+     * Выборка товаров по массиву id
+     *
+     * @param $arrayIds
+     * @return array
+     */
+    public static function getProductsByIds ($arrayIds) {
+
+        $con = Connection::make();
+
+        //Разбиваем пришедший массив в строку
+
+        $stringIds = "(".implode(',', $arrayIds).")";
+
+        $sql = "SELECT * FROM products WHERE id IN $stringIds";
+
+        $sth = $con->prepare($sql);
+        
+        $sth->execute();
+
+        $products = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+        return $products;
+    }
+
+    
 }

@@ -13,7 +13,7 @@ include_once VIEWS.'shared/admin/header.php';
         <div class="content-box-large">
                 <div class="panel-heading">
                     <div class="panel-title"><h3><?= $title;?></h3></div>
-                    <a href="/admin/roles/add"><button class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus-sign"></i> Add New</button></a>
+                    <a href="/admin/roles/create"><button class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus-sign"></i> Add New</button></a>
                 </div>
         
                 <div class="panel-body">

@@ -86,6 +86,56 @@
   </figure>
 
 </script>
+
+
+<script id="step1" type="text/template">
+  <div id="wrap">
+
+    <div class="step">
+      <div class="number">
+        <span>1</span>
+      </div>
+      <div class="title">
+        <h1>Order Information</h1>
+      </div>
+    </div>
+    
+    <div class="content order" id="address">
+      
+      <form class="go-right">
+        
+        <div>
+        <input type="name" name="user_name" value="" id="first_name" placeholder="Your Name" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your First and Last Name"/><label for="first_name">Your Name</label>
+        </div>
+
+        <div>
+        <input type="phone" name="telephone" value="" id="telephone" placeholder="Phone(555)-555-5555" data-trigger="change" data-validation-minlength="1" data-type="number" data-required="true" data-error-message="Enter Your Telephone Number"/><label for="telephone">Telephone</label>
+        </div>
+        <div class="content" id="final_products">
+        <div id="ordered">
+        <div class="totals">
+          <span class="subtitle">Subtotal <span id="sub_price">$45.00</span></span>
+          <span class="subtitle">Tax <span id="sub_tax">$2.00</span></span>
+          <span class="subtitle">Shipping <span id="sub_ship">$4.00</span></span>
+        </div>
+        <div class="final">
+          <span class="title">Total <span id="calculated_total">$51.00</span></span>
+        </div>
+        <br>
+        </div>
+        
+      </form>
+    <div class="complete">
+    
+          <a class="big_button" id="complete">Complete Order</a>
+          <span class="sub">By selecting this button you agree to the purchase and subsequent payment for this order.</span>
+    
+        </div>
+        
+        </div>
+    </div>
+  </div>
+</script>
   
   <script src="/js/app.js"></script>
 
@@ -172,10 +222,8 @@ try {
 
 
       $template.find('.product-name').text(product.name.replace(/ /g, '\u00a0')).attr('productName', product["name"]);
-
-      $template.find('img').attr('src', "/media/"+product.picture);
-      
-      // $template.find('img').attr('src', "/media/products/"+product["id"]+"/" + product.picture);
+            
+      $template.find('img').attr('src', "/media/products/"+product["id"]+"/" + product.picture);
       $template.find('.product-price').text('$' + product["price"]).attr('productPrice', product["price"]);
 
       $template.find('.productDescription').text( product["description"]);
@@ -419,7 +467,7 @@ try {
                               $("#cartBody").empty();
                               shoppingCart = [];
                               updateTotal();
-                              $(location).attr('href', 'catalog')
+                              $(location).attr('href', 'profile')
                            }
                       );
                 

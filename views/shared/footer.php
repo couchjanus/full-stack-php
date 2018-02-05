@@ -103,7 +103,7 @@
             <p>Total <span id="allTotal">$00.00</span></p>
         </div> <!-- cd-cart-total -->
 
-        <a href="#" class="checkout-btn">Checkout</a>
+        <a href="#" class="checkout-btn dialog__trigger">Checkout</a>
 
         <p class="clear-cart">Clear your shopping cart</p>
     </div> <!-- cd-cart -->

@@ -34,7 +34,7 @@ class RolesController extends Controller{
         }
         $data['title'] = 'Admin Role Add Page ';
        
-        $this->_view->render('admin/roles/add',$data);
+        $this->_view->render('admin/roles/create',$data);
         
     }
 

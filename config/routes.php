@@ -22,7 +22,16 @@ $router->post('register', 'UsersController@signup');
 
 $router->get('profile', 'ProfileController@index');
 $router->get('profile/edit', 'ProfileController@edit');
+$router->get('profile/orders', 'ProfileController@ordersList');
+
+$router->get('profile/orders/view/{id}', 'ProfileController@ordersView');
+$router->get('profile/orders/edit/{id}', 'ProfileController@ordersEdit');
+$router->get('profile/orders/delete/{id}', 'ProfileController@ordersDelete');
+
 $router->post('profile/edit', 'ProfileController@edit');
+
+$router->post('check', 'UsersController@actionCheck');
+$router->post('cart', 'CartController@index');
 
 $router->get('logout', 'UsersController@logout');
 $router->post('logout', 'UsersController@logout');
@@ -54,6 +63,14 @@ $router->get('admin/posts/delete/{id}', 'Admin\posts\PostController@delete');
 $router->post('admin/posts/create', 'Admin\posts\PostController@add');
 $router->post('admin/posts/edit/{id}', 'Admin\posts\PostController@edit');
 $router->post('admin/posts/delete/{id}', 'Admin\posts\PostController@delete');
+
+$router->get('admin/orders', 'Admin\shop\OrdersController@index');
+$router->get('admin/orders/view/{id}', 'Admin\shop\OrdersController@view');
+$router->get('admin/orders/edit/{id}', 'Admin\shop\OrdersController@edit');
+
+$router->get('admin/orders/delete/{id}', 'Admin\shop\OrdersController@delete');
+$router->post('admin/orders/edit/{id}', 'Admin\shop\OrdersController@edit');
+$router->post('admin/orders/delete/{id}', 'Admin\shop\OrdersController@delete');
 
 
 $router->get('admin/roles', 'Admin\acl\RolesController@index');
