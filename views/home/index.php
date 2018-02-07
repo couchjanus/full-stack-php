@@ -8,9 +8,10 @@ require_once VIEWS.'shared/navigation.php';
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="breadcrumb"><?= $breadcrumb;?></div>
                 <div class="feature_header text-center">
                     <h3 class="feature_title"><?=$title;?></b></h3>
-                    <h4 class="feature_sub">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h4>
+                    <h4 class="feature_sub"><?=$subtitle;?> </h4>
                     <div class="divider"></div>
                 </div>
             </div>  <!-- Col-md-12 End -->

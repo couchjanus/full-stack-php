@@ -21,8 +21,23 @@
                             <li><a href="/blog" >Blog</a> </li>
                             <li><a href="/guestbook" >Guestbook</a> </li>
                             <li><a href="/contact" >Contact Us</a> </li>
+                            <li class="nav-icons" id="navicons">
+                            <a href="#"><label for="search-toggle"><i class="fa fa-search button-search" aria-hidden="true"></i></label></a>
+                            <a href="#"><label for="modal-basket-toggle" id="cart-trigger"><i class="fa fa-shopping-cart shopping-cart" aria-hidden="true"></i></label></a>
+                            <a href="#"><label for="modal-login-toggle" class="animate"><i class="fa fa-user" aria-hidden="true"></i></label></a>
+                            <dropdown>
+                                <input id="modal-login-toggle" type="checkbox">
+                                <ul class="animate">
+                                <?php if(User::isGuest()):?>
+                                    <li class="animate"><a href="/register">SignUp<i class="fa fa-user-plus float-right"></i></a></li>
+                                    <li class="animate"><a href="/login">LogIn<i class="fa fa-sign-in float-right"></i></a></li>
+                                <?php else:?>
+                                    <li class="animate"><a href="/logout">LogOut<i class="fa fa-sign-out float-right"></i></a></li>
+                                <?php endif;?>
+                                </ul>
+                            </dropdown>
+                        </li>
                             
-                            <li id="cart-trigger"><a href="#" ><i class="fa fa-shopping-cart shopping-cart"></i></a></li>
                         
                         </ul>
 

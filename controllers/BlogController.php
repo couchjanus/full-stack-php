@@ -3,16 +3,41 @@
 class BlogController extends Controller
 {
 
-public function index()
-    {   
-        $posts = Post::index();
-        $data['title'] = 'Blog Page ';
-        $data['posts'] = $posts;
-        $this->_view->render('blog/index',$data);
+public function index($vars)
+{   
+    $page = 1;
+        
+    extract($vars);
 
-    }
-        public function search()
-    {
+    $page = $page? $page:1;
+
+ 
+    $posts = Post::getLatestPosts($page);
+
+    //Общее кол-во posts (для пагинации)
+    $total = Post::getTotalPosts();
+    $pagination = new Pagination($total, $page, Post::SHOW_BY_DEFAULT, 'page-');
+        
+        
+    $data['title'] = 'Blog Page ';
+    $data['subtitle'] = 'Posts with pagination';
+
+    $data['posts'] = $posts;
+    
+    $breadcrumb = new Breadcrumb();
+    
+    $data['breadcrumb'] = $breadcrumb->build(array(
+        'All Blog Posts' => 'blog',
+    ));
+    
+    $data['pagination'] = $pagination;
+
+    $this->_view->render('blog/index',$data);
+
+}
+
+public function search()
+{
         //Флаг ошибок
         $data['errors'] = false;
         $result = false;

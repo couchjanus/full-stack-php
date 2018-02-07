@@ -8,6 +8,7 @@ require_once VIEWS.'shared/navigation.php';
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+              <div class="breadcrumb"><?= $breadcrumb;?></div>
                 <div class="feature_header text-center">
                     <h2 class="feature_title"><?=$title;?></h2>
                     <div class="container">
@@ -36,12 +37,16 @@ require_once VIEWS.'shared/navigation.php';
                     
                <h2 class="sub-heading-a u-align-center"><?php echo $post['title']?></h3>
                <p class="body-a u-align-center"><?php echo $post['formated_date'];?></p>
-               <p  class="body-a u-align-center"><?php echo $post['content'];?></p>
-                    
+               <p class="body-a u-align-center"><?php echo substr($post['content'], 0, 100);?>... <a href="/blog/<?php echo $post['id']; ?>">Read More</a></p>
+                                   
               <?php endforeach; ?>
            
             </div>
+            <div class="middle">
+              <?php echo $data['pagination']->get();?>
+            </div>
         </div>
+        
     </div> <!-- Conatiner product end -->
 </section>  <!-- Section product End -->
 
